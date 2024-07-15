@@ -209,6 +209,43 @@ const Maze = ({ onLevelChange }) => {
   const [isMobile, setIsMobile] = useState(false);
   const [currentLevel, setCurrentLevel] = useState(0);
   const [isGameOver, setIsGameOver] = useState(false);
+
+  useEffect(() => {
+    // Check if the device is a mobile device
+    const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
+    setIsMobile(isMobileDevice);
+
+    // Set initial goal position
+    setGoal({ x: levels[currentLevel].cols - 1, y: levels[currentLevel].rows - 1 });
+    
+    const handleKeyDown = (e) => {
+      if (isGameWon || isMobile) return; // Game is won or mobile device, no need to handle key events
+
+      switch (e.key) {
+        case 'ArrowUp':
+          movePlayer(0, -1);
+          break;
+        case 'ArrowDown':
+          movePlayer(0, 1);
+          break;
+        case 'ArrowLeft':
+          movePlayer(-1, 0);
+          break;
+        case 'ArrowRight':
+          movePlayer(1, 0);
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [position, goal, isGameWon, isMobile, currentLevel]);
+
   const movePlayer = (dx, dy) => {
     const newPosition = { x: position.x + dx, y: position.y + dy };
   
@@ -251,43 +288,6 @@ const Maze = ({ onLevelChange }) => {
     }
   };
 
-  useEffect(() => {
-    // Check if the device is a mobile device
-    const isMobileDevice = /Mobi|Android/i.test(navigator.userAgent);
-    setIsMobile(isMobileDevice);
-
-    // Set initial goal position
-    setGoal({ x: levels[currentLevel].cols - 1, y: levels[currentLevel].rows - 1 });
-    
-    const handleKeyDown = (e) => {
-      if (isGameWon || isMobile) return; // Game is won or mobile device, no need to handle key events
-
-      switch (e.key) {
-        case 'ArrowUp':
-          movePlayer(0, -1);
-          break;
-        case 'ArrowDown':
-          movePlayer(0, 1);
-          break;
-        case 'ArrowLeft':
-          movePlayer(-1, 0);
-          break;
-        case 'ArrowRight':
-          movePlayer(1, 0);
-          break;
-        default:
-          break;
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [position, goal, isGameWon, isMobile, currentLevel, movePlayer]);
-
-  
   const isWall = (x, y) => {
     return (
       levels[currentLevel].walls &&
