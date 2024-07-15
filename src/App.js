@@ -44,7 +44,7 @@ const App = () => {
       padding: '10px',
       Width: '50%',
       margin: 'auto',
-      marginTop: '200px',
+
  
     },
     aboutUsContainer: {

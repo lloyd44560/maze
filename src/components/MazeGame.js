@@ -244,7 +244,7 @@ const Maze = ({ onLevelChange }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [position, goal, isGameWon, isMobile, currentLevel]);
+  }, [position, movePlayer, goal, isGameWon, isMobile, currentLevel]);
 
   const movePlayer = (dx, dy) => {
     const newPosition = { x: position.x + dx, y: position.y + dy };
