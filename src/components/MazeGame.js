@@ -285,7 +285,7 @@ const Maze = ({ onLevelChange }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [position, goal, isGameWon, isMobile, currentLevel]);
+  }, [position, goal, isGameWon, isMobile, currentLevel, movePlayer]);
 
   
   const isWall = (x, y) => {
