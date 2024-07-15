@@ -1,23 +1,25 @@
+// App.js
+
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainMenu from './MainMenu';
+import PlayPage from './PlayPage'; // Create PlayPage component
+import InstructionsPage from './InstructionsPage'; // Create InstructionsPage component
+import AboutUsPage from './AboutUsPage'; // Create AboutUsPage component
 
-const Home = () => (
-  <div>
-    <h2>Welcome to the Maze Game!</h2>
-  </div>
-);
-
-function App() {
+const App = () => {
   return (
     <Router>
-      <div className="App">
+      <div className="app">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<MainMenu />} />
+          <Route path="/play" element={<PlayPage />} />
+          <Route path="/instructions" element={<InstructionsPage />} />
+          <Route path="/about" element={<AboutUsPage />} />
         </Routes>
       </div>
     </Router>
   );
-}
+};
 
 export default App;
